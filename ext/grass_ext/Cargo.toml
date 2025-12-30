@@ -1,0 +1,13 @@
+[package]
+name = "grass_ext"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+grass_compiler = "0.13"
+magnus = { version = "0.7", features = ["rb-sys"] }
+rb-sys = { version = "0.9", default-features = false }
