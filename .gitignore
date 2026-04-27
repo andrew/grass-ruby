@@ -17,8 +17,5 @@
 *.so
 *.dll
 
-# Cargo lock in extension (regenerated)
-/ext/grass_ext/Cargo.lock
-
 # Gem build
 /*.gem

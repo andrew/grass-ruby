@@ -1,16 +1,13 @@
 use magnus::{
-    define_module, function, prelude::*, value::Lazy, Error, ExceptionClass, RHash, Ruby, Symbol,
-    TryConvert, Value,
+    function, prelude::*, value::Lazy, Error, ExceptionClass, RHash, Ruby, Symbol, TryConvert,
+    Value,
 };
 use std::path::PathBuf;
 
-static COMPILE_RESULT: Lazy<Value> = Lazy::new(|ruby| {
-    ruby.eval("Grass::CompileResult").unwrap()
-});
+static COMPILE_RESULT: Lazy<Value> = Lazy::new(|ruby| ruby.eval("Grass::CompileResult").unwrap());
 
-static COMPILE_ERROR: Lazy<ExceptionClass> = Lazy::new(|ruby| {
-    ruby.eval("Grass::CompileError").unwrap()
-});
+static COMPILE_ERROR: Lazy<ExceptionClass> =
+    Lazy::new(|ruby| ruby.eval("Grass::CompileError").unwrap());
 
 fn get_symbol_option(ruby: &Ruby, opts: RHash, key: &str) -> Option<String> {
     opts.get(ruby.sym_new(key))
@@ -103,7 +100,7 @@ fn init(ruby: &Ruby) -> Result<(), Error> {
     Lazy::force(&COMPILE_RESULT, ruby);
     Lazy::force(&COMPILE_ERROR, ruby);
 
-    let module = define_module("Grass")?;
+    let module = ruby.define_module("Grass")?;
     let ext_module = module.define_module("GrassExt")?;
 
     ext_module.define_singleton_method("compile", function!(compile, 2))?;
